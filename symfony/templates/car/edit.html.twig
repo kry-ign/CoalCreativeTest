@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Car{% endblock %}</title>
+</head>
+<body>
+{% block body %}
+<h1>Add new car:</h1>
+{{ form(createForm) }}
+<h1>List</h1>
+
+<table>
+    <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Model</td>
+        <td>year of production</td>
+        <td>Delete</td>
+    </tr>
+    {% for car in cars %}
+    <tr>
+        <td>{{ car.id }}</td>
+        <td>{{ car.name }}</td>
+        <td>{{ car.model }}</td>
+        <td>{{ car.year|date("m/d/Y") }}</td>
+        <td><a href="{{ path('car_delete',{'carId': car.id}) }}" class="button">Delete</a>
+
+                </tr>
+                {% endfor %}
+            </table>
+
+        {% endblock %}
+    </body>
+</html>
