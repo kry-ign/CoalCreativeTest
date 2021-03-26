@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Handler\Car;
 
 use App\Command\Car\CarCreateCommand;
-use App\Entity\Car;
+use App\Factory\CarFactory;
 use Doctrine\ORM\EntityManagerInterface;
 
 class CarCreateHandler
@@ -19,14 +19,15 @@ class CarCreateHandler
 
     public function handle(CarCreateCommand $command): void
     {
-        $car = new Car();
-        $car->setName($command->getName());
-        $car->setModel($command->getModel());
-        $car->setYear($command->getYear());
-        $car->setDriveTrain($command->getDriveTrain());
+
+        $product = CarFactory::create(
+            $command->getName(),
+            $command->getModel(),
+            $command->getYear(),
+            $command->getDriveTrain());
 
 
-        $this->objectManager->persist($car);
+        $this->objectManager->persist($product);
         $this->objectManager->flush();
     }
 }

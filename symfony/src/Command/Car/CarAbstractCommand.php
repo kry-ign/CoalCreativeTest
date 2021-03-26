@@ -56,7 +56,6 @@ class CarAbstractCommand implements CarInterfaceCommand
         return $this;
     }
 
-
     public function getDriveTrain(): ?DriveTrain
     {
         return $this->driveTrain;

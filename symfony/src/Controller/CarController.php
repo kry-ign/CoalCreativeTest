@@ -42,6 +42,7 @@ class CarController extends AbstractController
      */
     public function index(Request $request, string $sortBy, string $sortOrder): Response
     {
+
         $command = new CarCreateCommand();
 
         $form = $this->createForm(CarType::class, $command)
@@ -53,7 +54,7 @@ class CarController extends AbstractController
 
         return $this->render('car/car.html.twig', [
             'createForm' => $form->createView(),
-            'cars' => $this->carService->getAllCars($sortBy,$sortOrder)
+            'cars' => $this->carService->getAllCars($sortBy,$sortOrder),
         ]);
     }
 
@@ -76,7 +77,6 @@ class CarController extends AbstractController
      * @Route ("/edit/{carId}", name="edit")
      * @ParamConverter("car", options={"id" = "carId"})
      * @param Car $car
-     *
      * @return Response
      */
     public function edit(Request $request, Car $car): Response

@@ -44,6 +44,19 @@ class Car
      */
     private DriveTrain $driveTrain;
 
+    public function __construct(
+        string $name,
+        string $model,
+        \DateTime $year,
+        DriveTrain $driveTrain
+    )
+    {
+        $this->name = $name;
+        $this->model = $model;
+        $this->year = $year;
+        $this->driveTrain = $driveTrain;
+    }
+
     /**
      * @return int
      */

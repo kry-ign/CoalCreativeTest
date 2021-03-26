@@ -35,6 +35,13 @@ class DriveTrain
      */
     private $cars;
 
+    public function __construct(
+        string $name
+    )
+    {
+        $this->name = $name;
+    }
+
     /**
      * @return int
      */

@@ -111,6 +111,10 @@
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/league/tactician-container" />
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/league/tactician-logger" />
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/league/tactician" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/data-fixtures" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/doctrine-fixtures-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/webpack-encore-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/fzaninotto/faker" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
