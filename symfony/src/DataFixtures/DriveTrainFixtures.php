@@ -10,19 +10,16 @@ use Doctrine\Persistence\ObjectManager;
 
 class DriveTrainFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         foreach ($this->getData() as $item) {
-            $driveTrain = new DriveTrain();
-            $driveTrain->setName($item['driveTrain']);
-
-
+            $driveTrain = new DriveTrain($item['driveTrain']);
             $manager->persist($driveTrain);
         }
         $manager->flush();
     }
 
-    public function getData(): array
+    private function getData(): array
     {
         return [
             [

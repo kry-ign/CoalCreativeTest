@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Command\Car\CarAbstractCommand;
@@ -15,6 +17,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CarType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -27,9 +33,9 @@ class CarType extends AbstractType
                 'class' => DriveTrain::class,
                 'choice_label' => 'name',
             ])
-            ->add('saveAndAdd', SubmitType::class, ['label' => 'Save and Add'])
-
-        ;
+            ->add('Edit', SubmitType::class, [
+                'attr' => ['class' => 'save'],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

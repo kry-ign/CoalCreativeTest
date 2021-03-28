@@ -27,3 +27,7 @@ services:
     App\Handler\Car\CarEditHandler:
         tags:
             - { name: tactician.handler, typehints: true }
+
+    App\Handler\CarsCreateHandler:
+        tags:
+            - { name: tactician.handler, typehints: true }

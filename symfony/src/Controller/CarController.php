@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Command\Car\CarCreateCommand;
 use App\Command\Car\CarDeleteCommand;
 use App\Command\Car\CarEditCommand;
+use App\Command\CarsCreateCommand;
 use App\Entity\Car;
+use App\Form\CarsType;
 use App\Form\CarType;
 use App\Service\CarService;
+use Doctrine\Common\Collections\ArrayCollection;
 use League\Tactician\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,18 +40,20 @@ class CarController extends AbstractController
     /**
      * @Route ("/view/{sortBy}/{sortOrder}", defaults={"sortBy"="id", "sortOrder"="asc"}, name="view")
      * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request, string $sortBy, string $sortOrder): Response
     {
-
-        $command = new CarCreateCommand();
-
-        $form = $this->createForm(CarType::class, $command)
+        $command = new CarsCreateCommand();
+        $command->setCars(new ArrayCollection([]));
+        $form = $this->createForm(CarsType::class, $command)
             ->handleRequest($request);
 
         if ($form->isSubmitted()){
             $this->commandBus->handle($command);
+
+            return $this->redirectToRoute('car_view');
         }
 
         return $this->render('car/car.html.twig', [
@@ -57,6 +61,7 @@ class CarController extends AbstractController
             'cars' => $this->carService->getAllCars($sortBy,$sortOrder),
         ]);
     }
+
 
     /**
      * @Route ("/delete/{carId}", name="delete")
@@ -77,6 +82,7 @@ class CarController extends AbstractController
      * @Route ("/edit/{carId}", name="edit")
      * @ParamConverter("car", options={"id" = "carId"})
      * @param Car $car
+     *
      * @return Response
      */
     public function edit(Request $request, Car $car): Response
@@ -91,7 +97,7 @@ class CarController extends AbstractController
             return $this->redirectToRoute('car_view');
         }
 
-        return $this->render('car/car.html.twig', [
+        return $this->render('car/edit.html.twig', [
             'createForm' => $form->createView(),
             'cars' => $this->carService->getAllCars()
         ]);

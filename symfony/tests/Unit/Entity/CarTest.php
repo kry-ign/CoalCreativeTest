@@ -19,7 +19,7 @@ class CarTest extends TestCase
      * @param \DateTime $year
      * @param DriveTrain $driveTrain
      */
-    public function it_can_created(
+    public function it_can_be_created(
         string $name,
         string $model,
         \DateTime $year,

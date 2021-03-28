@@ -14,7 +14,7 @@ class DriveTrainTest extends TestCase
      * @param string $name
      * @dataProvider valuesProvider
      */
-    public function it_can_created(
+    public function it_can_be_created(
         string $name
     ): void
     {
@@ -30,7 +30,6 @@ class DriveTrainTest extends TestCase
         return [
             [
                 'test',
-
             ],
         ];
     }

@@ -1,46 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Car{% endblock %}
+{% block title %}CoalCreative-Car{% endblock %}
 
 {% block body %}
-
-
-    <h1>Add new car:</h1>
-    <div id="template">
-        <div style="text-align: left">
+    <div class="container">
+        <h2>Add car:</h2>
+        <div id="template">
             {{ form_start(createForm) }}
-            {{ form_widget(createForm) }}
+            <ul class="cars" data-prototype="{{ form_widget(createForm.cars.vars.prototype)|e('html_attr') }}"></ul>
+            <button type="button" class="add_car_link" data-collection-holder-class="cars">Add new car</button>
             {{ form_end(createForm) }}
         </div>
     </div>
-{#    {{ form_widget(createForm) }}#}
-<h1>List</h1>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <script>
+        jQuery(document).ready(
+            function () {
+                var $carsCollectionHolder = $('ul.cars');
+                $carsCollectionHolder.data('index', $carsCollectionHolder.find('input').length);
 
-<table>
-    <tr>
-        <td>ID</td>
-        <td>Name</td>
-        <td>Model</td>
-        <td>Year of production</td>
-        <td>Delete</td>
-        <td>Edit</td>
-    </tr>
-    <a href="{{ path('car_view',{'sortBy': 'name', 'sortOrder': 'asc'}) }}" class="button">SortByNameAsc</a></br>
-    <a href="{{ path('car_view',{'sortBy': 'name', 'sortOrder': 'desc'}) }}" class="button">SortByNameDesc</a></br>
-    <a href="{{ path('car_view',{'sortBy': 'year', 'sortOrder': 'asc'}) }}" class="button">SortByYearAsc</a></br>
-    <a href="{{ path('car_view',{'sortBy': 'year', 'sortOrder': 'desc'}) }}" class="button">SortByYearDesc</a></br>
-    {% for car in cars %}
-    <tr>
-        <td>{{ car.id }}</td>
-        <td>{{ car.name }}</td>
-        <td>{{ car.model }}</td>
-        <td>{{ car.year|date("m/d/Y") }}</td>
-        <td><a href="{{ path('car_delete',{'carId': car.id}) }}" class="button">Delete</a>
-        <td><a href="{{ path('car_edit',{'carId': car.id}) }}" class="button">Edit</a>
+                $('body').on('click', '.add_car_link', function (e) {
+                    var $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
+                    addFormToCollection($collectionHolderClass);
+                })
 
-                </tr>
-                {% endfor %}
-            </table>
-
-        {% endblock %}
-
+                function addFormToCollection($collectionHolderClass) {
+                    var $collectionHolder = $('.' + $collectionHolderClass);
+                    var prototype = $collectionHolder.data('prototype');
+                    var index = $collectionHolder.data('index');
+                    var newForm = prototype;
+                    newForm = newForm.replace(/__name__/g, index);
+                    $collectionHolder.data('index', index + 1);
+                    var $newFormLi = $(' <div class="col-lg-6 border-2 mt-10 mb-10"></div>').append(newForm);
+                    $collectionHolder.append($newFormLi)
+                }
+            },
+        );
+    </script>
+{% endblock %}
