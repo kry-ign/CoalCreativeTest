@@ -34,7 +34,7 @@ class CarType extends AbstractType
                 'choice_label' => 'name',
             ])
             ->add('Edit', SubmitType::class, [
-                'attr' => ['class' => 'save'],
+                'attr' => ['class' => 'btn-success'],
             ]);
     }
 
